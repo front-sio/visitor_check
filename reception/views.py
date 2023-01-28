@@ -10,7 +10,7 @@ from visitor.forms import saveVisitorForm
 from django.utils import timezone
 from datetime import timedelta
 from django.db import models
-from avocado.decorators import customer_only, allowed_user
+from avocado.decorators import customer_only, allowed_user, reception_only
 
 
 
@@ -19,7 +19,7 @@ def reception_dashboard(request):
     return render(request, 'reception/dashboard/index.html')
 
 @login_required
-@allowed_user
+@reception_only
 def kyc(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         res = None
