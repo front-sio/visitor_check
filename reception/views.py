@@ -15,8 +15,13 @@ from avocado.decorators import customer_only, allowed_user, reception_only
 
 
 @login_required
+@reception_only
 def reception_dashboard(request):
-    return render(request, 'reception/dashboard/index.html')
+    office = Office.objects.all()
+    data = {
+        'offices': office,
+    }
+    return render(request, 'reception/dashboard/index.html', data)
 
 @login_required
 @reception_only
@@ -49,7 +54,7 @@ def kyc(request):
     return JsonResponse({})
 
 @login_required
-@allowed_user
+@reception_only
 def save_visitor(request):
     form = saveVisitorForm()
     if request.method == "POST":
