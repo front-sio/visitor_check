@@ -15,7 +15,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).parent.parent
 
+from dotenv import load_dotenv
 
+import dj_database_url
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -25,9 +27,10 @@ SECRET_KEY = 'django-insecure-!tjurmzeh^2zrw*=&*d_v+n59y+89bi#&0@ff^vyoaq8%=s0q3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['visitorcheck.up.railway.app']
 
-
+CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -79,6 +82,13 @@ WSGI_APPLICATION = 'visitors.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+
+
+DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
+
 
 DATABASES = {
     'default': {
