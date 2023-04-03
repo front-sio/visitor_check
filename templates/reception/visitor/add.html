@@ -1,6 +1,10 @@
 {% extends 'visitors/base/index.html' %}
 
 {% block content %}
+<div class="title hidden">{% block title %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block header %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block page_header %}{{request.user}}{% endblock %}</div>
+  
 <form>
     <div class="row">
       <div class="col-md-6">

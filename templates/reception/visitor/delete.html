@@ -1,6 +1,10 @@
 {% extends 'visitors/base/index.html' %}
 
 {% block content %}
+<div class="title hidden">{% block title %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block header %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block page_header %}{{request.user}}{% endblock %}</div>
+  
 <div class="col-md-4">
     <h5>{% block title %}Are you sure you want to delete {{item}}{% endblock %}</h5>
      <form action="" method="POST">

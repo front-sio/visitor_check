@@ -1,6 +1,11 @@
 {% extends 'visitors/base/index.html' %}
 
 {% block content %}
+
+<div class="title hidden">{% block title %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block header %}Dashboard{% endblock %}</div>
+<div class="title hidden">{% block page_header %}{{request.user}}{% endblock %}</div>
+  
 <form method="post" action="{% url 'save_office' %}">
     {% csrf_token %}
     <div class="row">

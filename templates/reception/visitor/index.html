@@ -1,4 +1,4 @@
-{% extends 'visitors/base/index.html' %}
+{% extends 'reception/base/index.html' %}
 {% load static %}
 {% block content %}
 <style>
@@ -7,9 +7,8 @@
     }
 </style>
 <div class="row">
-    <div class="title hidden">{% block title %}Visitors{% endblock %}</div>
-    <div class="title hidden">{% block header %}Visitors{% endblock %}</div>
-    <div class="title hidden">{% block page_header %}Visitors{% endblock %}</div>
+  <div class="title hidden">{% block page_header %}{{request.user}}{% endblock %}</div>
+    
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -81,11 +80,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{visitor.office_visited}}</span>
                   </td>
                  
-                  <td class="align-middle">
-                    <a href="{% url 'delete_visitor' visitor.id %}" class="text-white btn btn-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      remove
-                    </a>
-                  </td>
+                  
                 </tr>
                 {% endfor %}
               </tbody>

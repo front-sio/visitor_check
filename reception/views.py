@@ -17,11 +17,41 @@ from avocado.decorators import customer_only, allowed_user, reception_only
 @login_required
 @reception_only
 def reception_dashboard(request):
-    office = Office.objects.all()
+    rece = request.user.receptionist
+    vendor = rece.customer
+    office = Office.objects.filter(company=vendor)
     data = {
         'offices': office,
     }
     return render(request, 'reception/dashboard/index.html', data)
+
+
+
+@login_required
+@reception_only
+def reception_visitor(request):
+    rece = request.user.receptionist
+    vendor = rece.customer
+    visitors = Visitor.objects.filter(company=vendor)
+    data = {
+        'visitors': visitors,
+    }
+    return render(request, 'reception/visitor/index.html', data)
+
+@login_required
+@reception_only
+def reception_office(request):
+    rece = request.user.receptionist
+    vendor = rece.customer
+   
+    offices = Office.objects.filter(company=vendor)
+   
+    data = {
+        'offices': offices,
+    }
+    print(offices)
+    return render(request, 'reception/offices/index.html', data)
+
 
 @login_required
 @reception_only
@@ -69,6 +99,8 @@ def save_visitor(request):
         # visited_from = request.POST.get('visited_from')
         # date_visited = request.POST.get('date_visited')
         office_visited = request.POST.get('office_visited')
+        rece = request.user.receptionist
+        vendor = rece.customer
 
         save_visitor = Visitor(
             first_name=first_name, 
@@ -77,6 +109,7 @@ def save_visitor(request):
             last_name=last_name,
             middle_name=middle_name,
             gender=gender,
+            company=vendor,
             date_of_birth=date_of_birth,
             # visited_from=visited_from,
             # date_visited=date_visited,
@@ -84,6 +117,6 @@ def save_visitor(request):
             )
 
         save_visitor.save()
-        return JsonResponse({})
+        return JsonResponse({'visitor': list(save_visitor)})
     return JsonResponse({})
 
