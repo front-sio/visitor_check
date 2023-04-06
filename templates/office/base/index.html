@@ -359,50 +359,112 @@
   <script src="{% static 'assets/js/live-saerch.js' %}"></script>
   {% comment %} <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script> {% endcomment %}
 
+<
+<script>
+
+
+  $(document).on('submit','#visitor-form', function(ev){
+    $("#verify_bt").on('click', function(){
+      $(document).ajaxSend(function(){
+        $('spinner-grow').fadeIn(500);
+        var loading = ` <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> please wait...`;
+        $("#verify_bt").html(loading);
+      });
+    })
+    ev.preventDefault()
+    
+  const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+  
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'save_visitor' %}',
+      data: {
+        id_number: $('#id_number').val(),
+        first_name: $('#first_name').val(),
+        middle_name: $('#middle_name').val(),
+        last_name: $('#last_name').val(),
+        gender: $('#gender').val(),
+        date_of_birth: $('#date_of_birth').val(),
+        on_behalf: $('#on_behalf').val(),
+        office_visited: $('#office_visited').val(),
+        csrfmiddlewaretoken: csrf,
+      },
+      success: function(response){
+        console.log(response)
+        window.location.reload(true);
+      },
+      error: function(er){console.log(er)},
+    });
+  });
+
+ 
+
+
+$(document).on('submit', '#office_save', function(e){
+  const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+  $.ajax({
+    type: 'POST',
+    url: '{% url 'save_customer' %}',
+    data: {
+      username: $('#username'),
+      first_name: $('#first_name'),
+      last_name: $('#last_name'),
+      password1: $('#password1'),
+      password2: $('#password2'),
+      csrfmiddlewaretoken: csrf,
+    },
+    success: function(res){}
+  });
+});
+</script>
+
+
 <script>
 
   $(document).ready(function(){
     setInterval(function(){
       $.ajax({
         type: 'GET',
-        url:  '{% url 'office_dashboard_live' %}',
+        url:  '/offices/dashboard/my_visitors/live/',
         success: (response)=>{
           console.log(response)
           $('#live_data_display').empty()
           for (var key in response.visitors){
-            var temp = "<tr><td><div class='d-flex px-2 py-1'><div><img src='{% static "assets/img/team-2.jpg" %}' class='avatar avatar-sm me-3' alt='user1'></div>"+response.visitors[key].first_name+"</td></div><td>"+response.visitors[key].middle_name+"</td><td>"+response.visitors[key].last_name+"</td><td>"+response.visitors[key].gender+"</td><td>"+response.visitors[key].time_in+"</td><td>"+response.visitors[key].time_out+"</td><td>"+response.visitors[key].date_visited+"</td><td>"+response.visitors[key].date_visited+"</td></tr>"
+            var temp = "<tr><td><div class='d-flex px-2 py-1'><div><img src='{% static "assetsimgteam.jpg" %}' class='avatar avatar-sm me-3' alt='user1'></div>"+response.visitors[key].first_name+"</td></div><td>"+response.visitors[key].middle_name+"</td><td>"+response.visitors[key].last_name+"</td><td>"+response.visitors[key].gender+"</td><td>"+response.visitors[key].time_in+"</td><td>"+response.visitors[key].time_out+"</td><td>"+response.visitors[key].date_visited+"</td><td>"+response.visitors[key].date_visited+"</td></tr>"
             $('#live_data_display').append(temp)
           }
         },
         error: (response)=>{
-          alert('No data')
+          alert('NO data match')
         },
       });
     }, 100);
   });
 </script>
 
+
+
 <script>
 
   $(document).ready(function(){
     setInterval(function(){
       $.ajax({
         type: 'GET',
-        url:  '{% url 'office_visitors_live' %}',
+        url:  '/offices/dashboard/live/',
         success: (response)=>{
           console.log(response)
           $('#d_live_display').empty()
-          for (var key in response.visitors){
+          for (var key in response.not_signed_out_visitors){
             var templ = `
             <div class="timeline-block mb-3">
               <span class="timeline-step">
                 <i class="ni ni-bell-55 text-success text-gradient"></i>
               </span>
               <div class="timeline-content">
-                <h6 class="text-dark text-sm font-weight-bold mb-0">${response.visitors[key].first_name} ${response.visitors[key].last_name}</h6>
-                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Date: ${response.visitors[key].date_visited}</p>
-                <p class="text-secondary font-weight-bold  text-xs mt-1 mb-0">In time:  ${response.visitors[key].time_in}</p>
-                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Out time: ${response.visitors[key].time_out}</p>
+                <h6 class="text-dark text-sm font-weight-bold mb-0">${response.not_signed_out_visitors[key].first_name} ${response.not_signed_out_visitors[key].last_name}</h6>
+                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Date: ${response.not_signed_out_visitors[key].date_visited}</p>
+                <p class="text-secondary font-weight-bold  text-xs mt-1 mb-0">In time:  ${response.not_signed_out_visitors[key].time_in}</p>
+                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Out time: ${response.not_signed_out_visitors[key].time_out}</p>
               </div>
             </div>
             `
@@ -416,14 +478,41 @@
     }, 100);
   });
 </script>
-<script>
-  const preloader = document.querySelector('#preloader');
 
-  window.addEventListener('load', ()=>{
-      preloader.style.display = 'none';
+<script>
+
+  $(document).ready(function(){
+    setInterval(function(){
+      $.ajax({
+        type: 'GET',
+        url:  '/offices/dashboard/live/',
+        success: (res)=>{
+          console.log(res.is_signed_out_visitors)
+          $('#live_is_signed_data_display').empty()
+          for (var key in res.is_signed_out_visitors){
+            var temp = "<tr><td><div class='d-flex px-2 py-1'><div><img src='{% static "assets/img/team-2.jpg" %}' class='avatar avatar-sm me-3' alt='user1'></div>"+res.is_signed_out_visitors[key].first_name+"</td></div><td>"+res.is_signed_out_visitors[key].middle_name+"</td><td>"+res.is_signed_out_visitors[key].last_name+"</td><td>"+res.is_signed_out_visitors[key].gender+"</td><td>"+res.is_signed_out_visitors[key].time_in+"</td><td>"+res.is_signed_out_visitors[key].time_out+"</td><td>"+res.is_signed_out_visitors[key].date_visited+"</td><td>"+res.is_signed_out_visitors[key].date_visited+"</td></tr>"
+            $('#live_is_signed_data_display').append(temp)
+          }
+        },
+        error: (res)=>{
+          alert('NO data match')
+        },
+      });
+    }, 100);
   });
 </script>
 
+
+
+<script>
+
+    const preloader = document.querySelector('#preloader');
+
+    window.addEventListener('load', ()=>{
+        preloader.style.display = 'none';
+    });
+
+</script>
 
 
 

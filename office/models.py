@@ -11,6 +11,7 @@ class Office(models.Model):
     last_name = models.CharField(max_length=200, null=True, blank=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     activity = models.CharField(max_length=200, null=True, blank=True)
+    phone= models.CharField(max_length=200, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     
 

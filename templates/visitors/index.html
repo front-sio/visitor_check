@@ -23,60 +23,46 @@
     <div class="col-lg-4 col-md-6">
       <div class="card h-100">
         <div class="card-header pb-0">
-          <h6>visitors overview</h6>
+          <h6>Signed in visitors</h6>
   
         </div>
         <div class="card-body p-3">
           <div class="timeline timeline-one-side" id="d_live_display">
-        </div>
+            
+          </div>
       </div>
     </div>
   </div>
 
-    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
-      <div class="card">
-        <div class="card-header pb-0">
-          <div class="row">
-            <div class="col-lg-6 col-7">
-              <h6>companies</h6>
-              <p class="text-sm mb-0">
-                <i class="fa fa-check text-info" aria-hidden="true"></i>
-                
-              </p>
-            </div>
-            <div class="col-lg-6 col-5 my-auto text-end">
-              <div class="dropdown float-lg-end pe-4">
-                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-ellipsis-v text-secondary"></i>
-                </a>
-                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body px-0 pb-2">
-          <div class="table-responsive">
-            <table class="table align-items-center mb-0">
-              <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">createn on</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-    
-                </tr>
-              </thead>
-              <tbody id="office_d_live">
-               
-              </tbody>
-            </table>
-          </div>
+  <div class="col-8">
+    <div class="card mb-4">
+      <div class="card-header pb-0">
+        <h6>Signed out visitors</h6>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-secondary text-xxs font-weight-bolder opacity-7">visitor first name</th>
+                <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">visitor middle name</th>
+                <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">visitor last name</th>
+                <th class=" text-secondary text-xxs font-weight-bolder opacity-7">gender</th>
+                <th class=" text-secondary text-xxs font-weight-bolder opacity-7">in time</th>
+                <th class=" text-secondary text-xxs font-weight-bolder opacity-7">out time</th>
+                <th class=" text-secondary text-xxs font-weight-bolder opacity-7">date visited</th>
+                <th class=" text-secondary text-xxs font-weight-bolder opacity-7">office visited</th>
+                <th class="text-secondary opacity-7"></th>
+              </tr>
+            </thead>
+            <tbody id="live_is_signed_data_display">
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
   </div>
 {% endblock %}

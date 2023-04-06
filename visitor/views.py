@@ -38,8 +38,9 @@ def dashboard(request):
 @customer_only
 def live_customer_dashboard(request):
     vendor = request.user.customer
-    visitors = Visitor.objects.filter(company=vendor).order_by('-time_in')[:6]
-    return JsonResponse({'visitors': list(visitors)})
+    not_signed_out = Visitor.objects.filter(company=vendor, is_signed_out=False).order_by('-time_in')[:8]
+    is_signed_out = Visitor.objects.filter(company=vendor, is_signed_out=True).order_by('-time_in')[:8]
+    return JsonResponse({'not_signed_out_visitors': list(not_signed_out.values()), 'is_signed_out_visitors': list(is_signed_out.values())})
 
 
 @login_required
@@ -51,7 +52,7 @@ def visitors_view(request):
 @customer_only
 def live_visitor(request):
     vendor = request.user.customer
-    queryset = Visitor.objects.filter(company=vendor).order_by('-time_in')[:8]
+    queryset = Visitor.objects.filter(company=vendor).order_by('-time_in')[:6]
     return JsonResponse({'visitors': list(queryset.values())})
 
 @login_required

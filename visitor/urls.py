@@ -24,7 +24,7 @@ urlpatterns = [
 
      # live data display
     path('visitors/live_session/', live_visitor, name="customer_live_session_visitors"),
-    path('visitors/dashboard/live_session/', live_visitor, name="customer_d_live_session_visitors"),
+    path('visitors/dashboard/live_session/', live_customer_dashboard, name="customer_d_live_session_visitors"),
     path('offices/live_session/', customer_offices_live, name="customer_live_session_offices"),
     path('offices/dashboard/live_session/', customer_offices_live_dashboard, name="customer_d_live_session_offices"),
  

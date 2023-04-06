@@ -23,16 +23,17 @@ def office_visitors(request):
 @office_staff_only
 def office_visitors_dashboard_live(request):
     office_obj = request.user.office
-    visitors = Visitor.objects.all().order_by('-time_in')[:6]
-    return JsonResponse({'visitors': json.dump(list(visitors))})
+    not_signed_out = Visitor.objects.filter(office_visited=office_obj, is_signed_out=False).order_by('-time_in')[:8]
+    is_signed_out = Visitor.objects.filter(office_visited=office_obj, is_signed_out=True).order_by('-time_in')[:8]
+    return JsonResponse({'not_signed_out_visitors': list(not_signed_out.values()), 'is_signed_out_visitors': list(is_signed_out.values())})
 
 
 @login_required
 @office_staff_only
 def office_visitor_live(request):
     office_obj = request.user.office
-    queryset = Visitor.objects.all().order_by('-time_in')[:6]
-    return JsonResponse({'visitors': json.dump(list(queryset.values))})
+    queryset = Visitor.objects.filter(office_visited=office_obj).order_by('-time_in')[:6]
+    return JsonResponse({'visitors': list(queryset.values())})
 
 @login_required
 @office_staff_only

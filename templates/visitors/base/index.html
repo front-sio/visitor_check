@@ -443,7 +443,7 @@ $(document).on('submit', '#office_save', function(e){
     setInterval(function(){
       $.ajax({
         type: 'GET',
-        url:  '{% url 'customer_live_session_visitors' %}',
+        url:  '/customers/visitors/live_session/',
         success: (response)=>{
           console.log(response)
           $('#live_data_display').empty()
@@ -460,42 +460,65 @@ $(document).on('submit', '#office_save', function(e){
   });
 </script>
 
+
+
 <script>
 
   $(document).ready(function(){
     setInterval(function(){
       $.ajax({
         type: 'GET',
-        url:  '{% url 'customer_d_live_session_visitors' %}',
+        url:  '/customers/visitors/dashboard/live_session/',
         success: (response)=>{
           console.log(response)
           $('#d_live_display').empty()
-          for (var key in response.visitors){
-            var temp = `
+          for (var key in response.not_signed_out_visitors){
+            var templ = `
             <div class="timeline-block mb-3">
               <span class="timeline-step">
                 <i class="ni ni-bell-55 text-success text-gradient"></i>
               </span>
               <div class="timeline-content">
-                <h6 class="text-dark text-sm font-weight-bold mb-0">${response.visitors[key].first_name} ${response.visitors[key].last_name}</h6>
-                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Date: ${response.visitors[key].date_visited}</p>
-                <p class="text-secondary font-weight-bold  text-xs mt-1 mb-0">In time:  ${response.visitors[key].time_in}</p>
-                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Out time: ${response.visitors[key].time_out}</p>
+                <h6 class="text-dark text-sm font-weight-bold mb-0">${response.not_signed_out_visitors[key].first_name} ${response.not_signed_out_visitors[key].last_name}</h6>
+                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Date: ${response.not_signed_out_visitors[key].date_visited}</p>
+                <p class="text-secondary font-weight-bold  text-xs mt-1 mb-0">In time:  ${response.not_signed_out_visitors[key].time_in}</p>
+                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Out time: ${response.not_signed_out_visitors[key].time_out}</p>
               </div>
             </div>
             `
-            $('#d_live_display').append(temp)
+            $('#d_live_display').append(templ)
           }
         },
         error: (response)=>{
-          alert('NO data match')
+          alert('No data')
         },
       });
     }, 100);
   });
 </script>
 
+<script>
 
+  $(document).ready(function(){
+    setInterval(function(){
+      $.ajax({
+        type: 'GET',
+        url:  '/customers/visitors/dashboard/live_session/',
+        success: (res)=>{
+          console.log(res.is_signed_out_visitors)
+          $('#live_is_signed_data_display').empty()
+          for (var key in res.is_signed_out_visitors){
+            var temp = "<tr><td><div class='d-flex px-2 py-1'><div><img src='{% static "assets/img/team-2.jpg" %}' class='avatar avatar-sm me-3' alt='user1'></div>"+res.is_signed_out_visitors[key].first_name+"</td></div><td>"+res.is_signed_out_visitors[key].middle_name+"</td><td>"+res.is_signed_out_visitors[key].last_name+"</td><td>"+res.is_signed_out_visitors[key].gender+"</td><td>"+res.is_signed_out_visitors[key].time_in+"</td><td>"+res.is_signed_out_visitors[key].time_out+"</td><td>"+res.is_signed_out_visitors[key].date_visited+"</td><td>"+res.is_signed_out_visitors[key].date_visited+"</td></tr>"
+            $('#live_is_signed_data_display').append(temp)
+          }
+        },
+        error: (res)=>{
+          alert('NO data match')
+        },
+      });
+    }, 100);
+  });
+</script>
 
 <script>
 
@@ -560,50 +583,6 @@ $(document).on('submit', '#office_save', function(e){
         preloader.style.display = 'none';
     });
 
-  $(document).ready(function(){
-    setInterval(function(){
-      $.ajax({
-        type: 'GET',
-        url:  '{% url 'customer_d_live_session_offices' %}',
-        success: (response)=>{
-          console.log(response)
-          $('#office_d_live').empty()
-          for (var key in response.offices){
-            var temp = `
-            <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="{% static 'assets/img/small-logos/logo-xd.svg' %}" class="avatar avatar-sm me-3" alt="xd">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">${response.offices[key].name}</h6>
-                      </div>
-                    </div>
-                  </td>
-                 
-                  <td>
-                    <div>
-                      <span class="text-xs font-weight-bold"> ${response.offices[key].created_on}</span>
-                    </div>
-                    
-                  </td>
-
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> ${response.offices[key].status}</span>
-                  </td>
-                  
-                </tr>
-            `
-            $('#office_d_live').append(temp)
-          }
-        },
-        error: (response)=>{
-          alert('NO data match')
-        },
-      });
-    }, 100);
-  });
 </script>
 </body>
 

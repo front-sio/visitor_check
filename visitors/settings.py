@@ -30,9 +30,9 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['visitorcheck.up.railway.app']
+ALLOWED_HOSTS = ['visitorcheck.up.railway.app', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
+# CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'visitors.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
-}
+# DATABASES = {
+#     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+# }
 
 
 # DATABASES = {
@@ -97,6 +97,18 @@ DATABASES = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'visitorcheck',
+        'USER': 'masanja',
+        'PASSWORD': '#@george1996',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # Password validation
