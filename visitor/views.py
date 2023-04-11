@@ -245,5 +245,5 @@ def save_office(request):
             group = Group.objects.get(name='office_admin')
             user.groups.add(group)
             Office.objects.create(user = user, company=customer, name = user.username, first_name=user.first_name,last_name=user.last_name)
-            return JsonResponse({})
+            return redirect('customer_dashboard')
     return JsonResponse({})
