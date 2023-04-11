@@ -5,6 +5,7 @@ from customer.models import Customer, License, Passport
 from office.models import Office
 from visitor.models import Visitor
 import json
+import random
 from django.http import JsonResponse
 from visitor.forms import saveVisitorForm
 from django.utils import timezone
@@ -96,6 +97,7 @@ def save_visitor(request):
         on_behalf = request.POST.get('on_behalf')
         gender = request.POST.get('gender')
         date_of_birth = request.POST.get('date_of_birth')
+        random_num =  random.randint(1111, 9999)
         # visited_from = request.POST.get('visited_from')
         # date_visited = request.POST.get('date_visited')
         office_visited = request.POST.get('office_visited')
@@ -105,7 +107,8 @@ def save_visitor(request):
         save_visitor = Visitor(
             first_name=first_name, 
             id_number=id_number, 
-            on_behalf=on_behalf, 
+            on_behalf=on_behalf,
+            sign_out_code=random_num, 
             last_name=last_name,
             middle_name=middle_name,
             gender=gender,
@@ -115,7 +118,6 @@ def save_visitor(request):
             # date_visited=date_visited,
             office_visited=office_visited,
             )
-
         save_visitor.save()
         return JsonResponse({'visitor': list(save_visitor)})
     return JsonResponse({})

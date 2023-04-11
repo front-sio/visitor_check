@@ -30,9 +30,9 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["16.170.134.213",'visitorcheck.up.railway.app', 'localhost']
+ALLOWED_HOSTS = ["16.170.134.213",'visitorcheck.up.railway.app', '127.0.0.1', 'localhost']
 
-# CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -99,14 +99,26 @@ WSGI_APPLICATION = 'visitors.wsgi.application'
 # }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'visitorcheck',
+#         'USER': 'masanja',
+#         'PASSWORD': '#@george1996',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'visitorcheck',
-        'USER': 'masanja',
-        'PASSWORD': '#@george1996',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': 'VhR0C5vckOY3xoMZGIjA',
+        'HOST': 'containers-us-west-89.railway.app',
+        'PORT': '7469',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
