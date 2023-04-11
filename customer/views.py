@@ -18,8 +18,6 @@ def save_customer(request):
             group = Group.objects.get(name='customer')
             user.groups.add(group)
             Customer.objects.create(user = user, display_name = user.username)
-            
-            return JsonResponse({})
             return redirect('customer_dashboard')
     return JsonResponse({})
 
