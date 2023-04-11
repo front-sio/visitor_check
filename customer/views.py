@@ -15,10 +15,12 @@ def save_customer(request):
         form.password2 = request.POST.get('password2')
         if form.is_valid():
             user = form.save()
-            group = Group.objects.get(name='vendor')
+            group = Group.objects.get(name='customer')
             user.groups.add(group)
             Customer.objects.create(user = user, display_name = user.username)
+            
             return JsonResponse({})
+            return redirect('customer_dashboard')
     return JsonResponse({})
 
 
