@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-from .models import Customer, Receptionist, License, Passport
+from .models import Customer, License, Passport
 
 
 
 admin.site.register(Customer)
-admin.site.register(Receptionist)
 admin.site.register(License)
 admin.site.register(Passport)

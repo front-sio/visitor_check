@@ -1,10 +1,9 @@
 
-  const url = window.location.href;
-  const checkBtn = document.querySelector('#check_btn');
+const checkBtn = document.querySelector('#check_btn');
   const hide_search_form = document.querySelector('#hide_search_form');
   // const save_visitor_form = document.querySelector('#save_visitor_form');
-  const searchForm = document.querySelector('#search-form');
-  const resultBox = document.querySelector('#result-box');
+const searchForm = document.querySelector('#search-form');
+const resultBox = document.querySelector('#result-box');
   // const verifyBtn = document.getElementById('#verify-cont');
 
   const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
@@ -79,7 +78,9 @@ $("#check_btn").on('click', function(){
        }else{
         $("#modal-form").modal("show");
         if (data == 'No data match!'){
-          resultBox.innerHTML = `<b>${data}</b>`
+          resultBox.innerHTML = `<b>${data}</b>
+          <button>Ok</button>
+          `
           // alert(data)
         }
        }
