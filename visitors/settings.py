@@ -28,9 +28,9 @@ SECRET_KEY = 'django-insecure-!tjurmzeh^2zrw*=&*d_v+n59y+89bi#&0@ff^vyoaq8%=s0q3
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["16.170.134.213",'visitorcheck.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["16.170.134.213",'visitorcheckapp.up.railway.app', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ["https://visitorcheck.up.railway.app", "http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://visitorcheckapp.up.railway.app", "http://127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
