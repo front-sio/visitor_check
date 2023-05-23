@@ -25,7 +25,7 @@ import dj_database_url
 SECRET_KEY = 'django-insecure-!tjurmzeh^2zrw*=&*d_v+n59y+89bi#&0@ff^vyoaq8%=s0q3'
 # DATABASE_URL = os.getenv("DATABASE_URL")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ["16.170.134.213",'visitorcheck.up.railway.app', '127.0.0.1', 'localhost']
@@ -162,11 +162,11 @@ USE_TZ = True
 # settings.py
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
